@@ -1,0 +1,112 @@
+<thead>
+    <tr style="    background-color: #cb2f1d;color: white;">
+        <th style="text-align: center;    border-right: 1px solid;width: 5%;padding-bottom: 2px;padding-top: 2px;">Indicador</th>
+        <th style="text-align: center;    border-right: 1px solid;width: 10%;padding-bottom: 2px;padding-top: 2px;">Indicadores</th>
+            {% for i in 1..12 %}
+            <th style="text-align: center;border-right: 1px solid;padding-bottom: 2px;padding-top: 2px;">
+                {%if i==1%}
+                    Ene
+                {%elseif i==2%}
+                    Feb
+                {%elseif i==3%}
+                    Mar
+                {%elseif i==4%}
+                    Abr
+                {%elseif i==5%}
+                    May
+                {%elseif i==6%}
+                    Jun
+                {%elseif i==7%}
+                    Jul
+                {%elseif i==8%}
+                    Ago
+                {%elseif i==9%}
+                    Sep
+                {%elseif i==10%}
+                    Oct
+                {%elseif i==11%}
+                    Nov
+                {%else%}
+                    Dic
+                {%endif%}    
+            </th>
+        {% endfor %}
+        <th style="text-align: center;border-right: 1px solid;width: 1%;padding-bottom: 2px;padding-top: 2px;"></th>
+        <th style="text-align: center;border-right: 1px solid;width: 1%;padding-bottom: 2px;padding-top: 2px;"></th>
+        <th colspan="3" style="text-align: center;width: 15%;padding-bottom: 2px;padding-top: 2px;">Rengo</th>
+    </tr>
+</thead>
+<tbody>
+    {#FOR PRINCIPAL#}
+    {% for lst in lista %}
+        {%if lst.tab_padre=='0'%}
+            <tr>
+                {#FOR EN EL CASO QUE TENGA UN NIVEL#}
+                <td rowspan='{{lst.tab_count}}' colspan="{{lst.tab_col}}" style="text-align: center;background: #8080800d;border-right: 1px solid #dddddd"><strong>{{lst.tab_descripcion}} </strong></td>
+                {%if lst.tab_tipo!=0%}
+                    {% if lst.tab_tipo=='3'%}
+                        {% include 'IndicadorBundle:Default:include2_col_1_text.html.twig' %} 
+                    {%else%}
+                        {% include 'IndicadorBundle:Default:include_col_1.html.twig' %}       
+                    {%endif%}
+
+                    {#BOTON PARA INGRESAR MONTO#}
+                    <td style="text-align: center;border-right: 1px solid #dddddd">
+                        {% if  mesactual!=''  and codarea==lst.cod_area%}
+                            <a href="javascript:;" class="btn btn-icon-only green" 
+                               onclick="IngresarCantidad('{{lst.cod_tablero}}', '{{lst.tab_descripcion}}', '{{mesactual}}', '{{lst.tab_tipo}}')">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        {%endif%}   
+                    </td>
+                     {#BOTON PARA VER FICHA#}
+                    <td style="text-align: center;border-right: 1px solid #dddddd">
+                        {% if lst.tab_punt_min!=''%}
+                            <a href="javascript:;" class="btn btn-icon-only red" onclick="ficha('{{lst.cod_tablero}}')">
+                                <i class="fa fa-file-o"></i>
+                            </a>
+                        {%endif%}
+                    </td>
+                    {#LEYENDA#}
+                    <td style="text-align: left">{% if  lst.tab_punt_min!='' %}<img src="https://www.spreadshirt.es/image-server/v1/mp/designs/14752976,width=178,height=178/japon-el-sol-circulo-forma-redondo-uniforme-simbolo-zen-centro-de-burbuja-media-ricos-japones-tatuaje-lucha-combate-punto-querida-yo-asia-el-amor-la-cultura-de-color-rojo-de-punto.png" style="width: 17px;"> ≤ {{lst.tab_punt_min}}{%endif%}</td>
+                    <td style="text-align: left">{% if  lst.tab_punt_med!=''%}<img src="https://www.clker.com/cliparts/5/f/0/2/13140637421358701017yellow%20ball-hi.png" style="width: 17px;"> < {{lst.tab_punt_med}}{%endif%}</td>
+                    <td style="text-align: left">{% if  lst.tab_punt_max!=''%}<img src="https://userscontent2.emaze.com/images/39ef2d09-32fe-48f8-a063-d72e7cd768b5/f62c315a49c4327d765962c7c58ff9fc.png" style="width: 17px;"> ≥ {{lst.tab_punt_max}}{%endif%}</td>
+                    {%endif%} 
+                {#FOR EN EL CASO QUE TENGA DOS SUBNIVELES#}
+                {% for lst2 in lista %}
+                    {%if lst.cod_tablero==lst2.tab_padre %}
+                        <td style="{% if lst2.tab_pertenece=='2'%}background: #cb2f1d;color: white;padding: 5px;{%endif%}%;padding-bottom: 0px !important;padding-top: 0px !important;border-right: 1px solid #dddddd ">{{lst2.tab_descripcion}}</td>
+                        {% if lst2.tab_pertenece!='2'%}
+                            {% if lst2.tab_tipo=='3'%}
+                                {% include 'IndicadorBundle:Default:include2_col_2_text.html.twig' %} 
+                            {%else%}
+                                {% include 'IndicadorBundle:Default:include_col_2.html.twig' %}            
+                            {%endif%}
+                        {%endif%}
+                        {#BOTON PARA INGRESAR MONTO#}
+                        <td style="text-align: center;border-right: 1px solid #dddddd">
+                            {% if lst2.tab_pertenece!='2' and mesactual!='' and codarea==lst2.cod_area%}
+                                <a href="javascript:;" class="btn btn-icon-only green" 
+                                   onclick="IngresarCantidad('{{lst2.cod_tablero}}', '{{lst2.tab_descripcion}}', '{{mesactual}}', '{{lst2.tab_tipo}}')">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                            {%endif%}
+                        </td>
+                         {#BOTON PARA INGRESAR MONTO#}
+                        <td style="text-align: center;border-right: 1px solid #dddddd">
+                            {% if lst2.tab_punt_min!=''%}
+                                <a href="javascript:;" class="btn btn-icon-only red" onclick="ficha('{{lst2.cod_tablero}}')">
+                                    <i class="fa fa-file-o"></i>
+                                </a>
+                            {%endif%}
+                        </td>
+                         {#LEYENDA#}
+                        <td style="text-align: left">{% if lst2.tab_pertenece!='2' and lst2.tab_punt_min!='' %}<img src="https://www.spreadshirt.es/image-server/v1/mp/designs/14752976,width=178,height=178/japon-el-sol-circulo-forma-redondo-uniforme-simbolo-zen-centro-de-burbuja-media-ricos-japones-tatuaje-lucha-combate-punto-querida-yo-asia-el-amor-la-cultura-de-color-rojo-de-punto.png" style="width: 15px;"> ≤ {{lst2.tab_punt_min}}{%endif%}</td>
+                        <td style="text-align: left">{% if lst2.tab_pertenece!='2' and lst2.tab_punt_med!=''%}<img src="https://www.clker.com/cliparts/5/f/0/2/13140637421358701017yellow%20ball-hi.png" style="width: 15px;"> < {{lst2.tab_punt_med}}{%endif%}</td>
+                        <td style="text-align: left">{% if lst2.tab_pertenece!='2' and lst2.tab_punt_max!=''%}<img src="https://userscontent2.emaze.com/images/39ef2d09-32fe-48f8-a063-d72e7cd768b5/f62c315a49c4327d765962c7c58ff9fc.png" style="width: 15px;"> ≥ {{lst2.tab_punt_max}}{%endif%}</td>
+                    </tr>
+                {%endif%}
+            {%endfor%}
+        {%endif%}
+    {%endfor%}
+</tbody>

@@ -1,0 +1,317 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+		
+		*{
+			margin:0;
+			padding: 0;
+		}
+
+		body{
+			padding: 20px;
+			font-weight: bold;
+		}
+
+
+		#value_barras{
+			float: left;
+			width: 40px;
+		}
+
+		#value_barras p{
+			
+			margin:0;
+			
+		}
+
+		#value_barras p:nth-child(10){
+			padding-top: 10px;
+		}
+
+		#canvas{
+			float: left;
+		}
+
+		#label_barras{
+			clear: both;
+			width: 760px;
+			height: 40px;
+			margin-left: 40px;
+		}
+
+		#label_barras p{
+						
+			width: 61px;
+			float: left;
+			margin:0;
+
+			text-align: center;
+			padding: 0;
+			font-size: 0.8em;
+		}
+
+		.semaforo{
+			width: 20px;
+			border-radius: 50%;
+			height: 20px;	
+		}
+
+			.semaforo__colorRojo{
+
+				background-color: red;
+			}
+			.semaforo__colorAmarillo{
+
+				background-color: yellow;
+			}
+			.semaforo__colorVerde{
+
+				background-color: green;
+			}
+
+	.container-table{
+		
+		width:  80%;
+		margin:0 auto;	
+	}
+
+		.container-table td{
+			font-weight: bold;
+		}
+
+		.titulo-ficha{
+			text-align: center;
+			font-size: 1.5em;
+			
+		}
+
+		.td-semaforoColores > p {
+			
+			padding-top: 60px;
+			
+		}
+
+	</style>  
+</head>
+<body>
+
+<div class="container">
+	<table class="table table-bordered table-responsive" border="2" >
+
+		<tbody>
+
+			<tr>
+
+				<td colspan="4"><p class="titulo-ficha">{{arrayFormGet[25]}}</p></td>
+
+			</tr>
+
+			<tr>
+
+				<td>ORGANO O UNIDAD ORGANICA</td>
+				<td colspan="3">{{arrayFormGet[1]}}</td>
+
+			</tr>
+
+			<tr>
+				<td>MES REPORTE</td>
+				<td colspan="3">{{arrayFormGet[2]}}</td>
+			</tr>
+
+			<tr>
+				<td>PROCESO</td>
+				<td colspan="3">{{arrayFormGet[3]}}</td>					
+			</tr>
+
+
+			<tr>
+				<td>OBJETIVO</td>
+				<td colspan="3">{{arrayFormGet[4]}}</td>
+			</tr>
+
+
+			<tr>
+				<td>FORMA CALCULO</td>
+				<td colspan="3">{{arrayFormGet[5]}}</td>
+			</tr>
+
+			<tr>
+				<td rowspan="3" class="td-semaforoColores"><P>SEMAFORO DE COLORES</P> </td>
+				<td colspan="3" id="grafica_rojo" >{{arrayFormGet[10]}}<div class="semaforo  semaforo__colorRojo"></div></td>
+				
+			</tr>
+
+
+			<tr>
+				<td colspan="3" id="grafica_amarillo">{{arrayFormGet[11]}}<div class="semaforo semaforo__colorAmarillo"></div> </td>
+				
+			</tr>
+
+			<tr>
+				<td colspan="3" id="grafica_verde">{{arrayFormGet[12]}}<div class="semaforo semaforo__colorVerde"></div></td>
+				
+			</tr>
+
+			<tr>
+				<td >FUENTE DE INFORMACION</td>
+				<td  colspan="3">{{arrayFormGet[6]}}</td>
+			</tr>
+
+	
+			<tr>
+
+				<td colspan="4" id="content_canvas_valuebarras" >
+					<div id="value_barras">
+					</div>
+					<canvas id="canvas"  width="740" height="300">
+					</canvas> 
+					<div id="label_barras">
+					</div>
+				</td>
+
+			</tr>
+
+			<tr>
+				<td colspan="4">PLAN DE ACCION</td>
+			</tr>
+
+			<tr>
+
+				<td colspan="2">ACCION</td>
+				<td>FECHA</td>
+				<td>RESPONSABLE</td>
+
+			</tr>
+
+			<tr>
+
+				<td colspan="2">{{arrayFormGet[7]}}</td>
+				<td>{{arrayFormGet[8]}}</td>
+				<td>{{arrayFormGet[9]}}</td>
+
+			</tr>
+
+		</tbody>
+
+	</table>
+
+</div>
+
+
+<script>
+
+	var value_barras = document.getElementById('value_barras');
+	var label_barras = document.getElementById('label_barras');
+
+	canvas = document.getElementById('canvas'); 
+  
+    var ctx=canvas.getContext("2d");
+
+    var data = [];
+
+    var data=[{{arrayFormGet[13]}},{{arrayFormGet[14]}},{{arrayFormGet[15]}},{{arrayFormGet[16]}},{{arrayFormGet[17]}},{{arrayFormGet[18]}},{{arrayFormGet[19]}},{{arrayFormGet[20]}},{{arrayFormGet[21]}},{{arrayFormGet[22]}},{{arrayFormGet[23]}},{{arrayFormGet[24]}}];
+
+	var label=[];
+
+	var mayor = data[0];
+
+	for (var i =1; i < data.length; i++) {
+		
+		if (mayor<data[i]) {
+			mayor=data[i];
+		}
+	}
+
+	var itNum= mayor/10;
+	var sum=0;	
+
+	for(var i =9 ; i>-1 ; i--){	
+		sum=sum+itNum;
+
+		var a =sum.toString();
+
+		var dec	= a.split('.')[1];
+
+		if(dec == undefined){
+			label[i] = sum;	
+		}
+		else if(String(dec).length == 1 ){
+			label[i] = sum;	
+		}else if(String(dec).length > 1) {
+			label[i] = String(dec);
+
+			if(String(dec)[2]> 4){
+				label[i] = String(a).substring(0,4);				
+			}else{
+				label[i] = String(a).substring(0,3);
+			}
+
+		}
+
+		
+	}
+            
+  	var labelBarra = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+
+    function barras(ctx,data,color){
+
+    	var numBarras = data.length;
+    	var widthCanvas = canvas.getAttribute('width');
+    	var marginBarras = widthCanvas*0.02;
+    	var widthBarra = widthCanvas/numBarras;
+		x=0;
+
+		var heightLabel= canvas.getAttribute('height')/10;
+
+		var hl=0;
+
+    	for(var i = 0 ; i < numBarras ; i++){
+
+    		
+    		if(i>-1 && i<10){
+    			var pa = document.createElement('p');
+    			var nodo = document.createTextNode(label[i]);
+    			pa.appendChild(nodo);
+    			value_barras.appendChild(pa);	
+    			document.getElementsByTagName('p')[i].style.height=heightLabel+"px";
+    			console.log(heightLabel);
+
+    			
+				ctx.moveTo(0, hl);
+				ctx.lineTo(widthCanvas, hl);
+				ctx.lineWidth=0.1;
+				ctx.stroke();
+				 
+				hl+=heightLabel;
+    		}
+
+
+			ctx.fillStyle = color;
+			//console.log(x);
+			
+    		ctx.fillRect (x,canvas.getAttribute('height'),widthBarra-marginBarras,-data[i]*canvas.getAttribute('height')/mayor); 
+    		x = x +widthBarra;  
+
+    		
+    	}
+
+    	for(var j=0;j<labelBarra.length;j++){
+    		console.log(labelBarra[j]);
+   			var pa_la = document.createElement('p');
+			var nodo_la = document.createTextNode(labelBarra[j]);
+			pa_la.appendChild(nodo_la);
+			label_barras.appendChild(pa_la);	
+    	}
+    }
+
+    barras(ctx,data,"#cb2f1d");
+
+</script>
+</body>
+</html>
+

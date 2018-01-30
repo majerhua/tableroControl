@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <title>{{global.title}}</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <meta content="" name="description">
+        <meta content="" name="author">
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <!--<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css">-->
+        <link href="{{global.pathRecursos}}/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="{{global.pathRecursos}}/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
+        <link href="{{global.pathRecursos}}/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="{{global.pathRecursos}}/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css">
+        <!-- END GLOBAL MANDATORY STYLES -->                
+        <!-- BEGIN THEME STYLES -->
+        <!-- DOC: To use 'rounded corners' style just load 'components-rounded.css' stylesheet instead of 'components.css' in the below style tag -->
+        <link href="{{global.pathRecursos}}/assets/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css">
+        <link href="{{global.pathRecursos}}/assets/global/css/components-md.min.css" id="style_components" rel="stylesheet" type="text/css">
+        {#         <link href="{{global.pathRecursos}}/assets/global/css/components.min.css" id="style_components" rel="stylesheet" type="text/css">#}
+        <link href="{{global.pathRecursos}}/assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css">
+        {#        <link href="{{global.pathRecursos}}/assets/pages/css/search.min.css" id="style_components" rel="stylesheet" type="text/css">#}
+        {#        <link href="{{global.pathRecursos}}/assets/pages/css/profile.min.css" id="style_components" rel="stylesheet" type="text/css">#}
+        <link href="{{global.pathRecursos}}/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" id="style_components" rel="stylesheet" type="text/css">
+        <link href="{{global.pathRecursos}}/assets/global/css/plugins.css" rel="stylesheet" type="text/css">
+        <link href="{{global.pathRecursos}}/assets/admin/layout3/css/layout.css" rel="stylesheet" type="text/css">
+        <link href="{{global.pathRecursos}}/assets/admin/layout3/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color">
+        <link href="{{global.pathRecursos}}/assets/admin/layout3/css/custom.css" rel="stylesheet" type="text/css">
+        <!-- END THEME STYLES -->        
+        {#<link href="{{asset('bundles/resolucion/plugins/jAlert/jquery.alerts.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('bundles/resolucion/css/main.css')}}" rel="stylesheet" type="text/css">#}
+        <link rel="shortcut icon" href="{{global.pathRecursos}}/basicos/imagenes/logo-ipd.png"/>  
+        <style>
+            .page-header .page-header-menu{
+                background-color: #cb2f1d !important;
+            }
+            .page-header .page-header-menu .hor-menu .navbar-nav > li.active > a{
+                color: #f1f1f1;
+                background: #ab2819 !important; 
+                color: white !important;
+            }
+            .todo-project-list .nav-pills > li.active > a {
+                background-color:#cb2f1d !important;
+                color: white !important;
+            }
+
+            .page-content {
+                background: #6f6f6e1c !important;
+                {#padding: 15px 0 15px;#}
+            }
+        </style>
+        {% block stylesheets %}
+        {% endblock %}
+    </head>
+    <!-- END HEAD -->
+    <!-- BEGIN BODY -->
+    <!-- DOC: Apply "page-header-menu-fixed" class to set the mega menu fixed  -->
+    <!-- DOC: Apply "page-header-top-fixed" class to set the top menu fixed  -->
+    <body>
+        <!-- BEGIN HEADER -->
+        <div class="page-header">
+            <!-- BEGIN HEADER TOP -->
+            <div class="page-header-top">
+                <div class="container-fluid">
+                    <!-- BEGIN LOGO -->
+                    <div class="page-logo" style="    padding-left: 10px;">
+                        <img src="{{global.pathRecursos}}/imagenes/logos/logotipo2_small.png" alt="logo" class="logo-default" style="    margin-top: 10px;"/>
+                    </div>
+                    <!-- END LOGO -->
+                    <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+                    <a href="javascript:;" class="menu-toggler"></a>
+                    <!-- END RESPONSIVE MENU TOGGLER -->
+                    <!-- BEGIN TOP NAVIGATION MENU -->
+{#                    {% set usuario =  app.session.get('usuario') %}  #}
+{#                    {% if usuario is not null %}#}
+                        <div class="top-menu">
+                            <ul class="nav navbar-nav pull-right">
+                                <li class="dropdown dropdown-user dropdown-dark">
+                                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                        <img alt="" class="img-circle" src="https://cdn0.iconfinder.com/data/icons/user-pictures/100/matureman1-512.png">
+                                        <span class="username username-hide-mobile">{#{{usuario.pernombres}} {{usuario.perapepaterno}}#}Jesus Falen Falcon</span>
+                                    </a>
+                                </li>
+                                <li class="droddown dropdown-separator">
+                                    <span class="separator"></span>
+                                </li>
+                                <li class="dropdown dropdown-extended quick-sidebar-toggler  dropdown-dark" >                                    
+                                    <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" style="display: initial;">
+                                        <i class="icon-logout"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-default">						
+                                        <li>
+{#                                            <a href="">#}
+                                                <i class="icon-key"></i> Cerrar Sesion </a>
+                                        </li>
+                                    </ul> 
+                                </li> 
+                                <!-- END QUICK SIDEBAR TOGGLER -->
+                            </ul>
+                        </div>
+{#                    {%endif%}#}
+                    <!-- END TOP NAVIGATION MENU -->
+                </div>
+            </div>
+            <!-- END HEADER TOP -->
+            <!-- BEGIN HEADER MENU -->
+            <div class="page-header-menu">
+                <div class="container-fluid">                    
+                    <!-- BEGIN MEGA MENU -->
+                    <!-- DOC: Apply "hor-menu-light" class after the "hor-menu" class below to have a horizontal menu with white background -->
+                    <!-- DOC: Remove data-hover="dropdown" and data-close-others="true" attributes below to disable the dropdown opening on mouse hover -->
+                    <div class="hor-menu  ">
+                        <ul class="nav navbar-nav">
+                            <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown active">
+                                <a href=""style="color: white;    background: #cb2f1d !important;"> Inicio
+                                    <span class="arrow"></span>
+                                </a>
+                            </li>
+                            {#<li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown active">
+                                <a href="" style="color: white;    background: #cb2f1d !important;" target="_blank"> Matenedor Indicadores
+                                    <span class="arrow"></span>
+                                </a>
+                            </li>#}
+                        </ul>
+                    </div>
+                {% block menu %}{% endblock %}
+                <!-- END MEGA MENU -->
+            </div>
+        </div>
+        <!-- END HEADER MENU -->
+    </div>
+    <!-- END HEADER -->
+    <!-- BEGIN PAGE CONTAINER -->
+    <div class="page-container">
+        <!-- BEGIN PAGE HEAD -->
+    {% block page_head %}{% endblock %}            
+    <!-- END PAGE HEAD -->
+    <!-- BEGIN PAGE CONTENT -->
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- BEGIN PAGE BREADCRUMB -->
+            {% block breadcrumb %}{% endblock %}                    
+        <!-- END PAGE BREADCRUMB -->
+        <!-- BEGIN PAGE CONTENT INNER -->
+            <div class="row margin-top-10">
+                {% block body_content %}
+
+                {% endblock %}                        
+            </div>                    
+        <!-- END PAGE CONTENT INNER -->
+        </div>
+    </div>
+<!-- END PAGE CONTENT -->
+   </div>
+<!-- END PAGE CONTAINER -->
+
+<!-- BEGIN FOOTER -->
+<div class="page-footer" {#style="position: absolute;bottom: 0;width: 100%;"#}>
+    <div class="container-fluid ">
+        2017 &copy; Instituto Peruano del Deporte
+    </div>
+</div>
+<div class="scroll-to-top">
+    <i class="icon-arrow-up"></i>
+</div>
+<!-- END FOOTER -->
+<!-- BEGIN JAVASCRIPTS (Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+<!--[if lt IE 9]>
+<script src="{{global.pathRecursos}}/assets/global/plugins/respond.min.js"></script>
+<script src="{{global.pathRecursos}}/assets/global/plugins/excanvas.min.js"></script> 
+<![endif]-->
+<script src="{{global.pathRecursos}}/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="{{global.pathRecursos}}/assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="{{global.pathRecursos}}/assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+<script src="{{global.pathRecursos}}/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="{{global.pathRecursos}}/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="{{global.pathRecursos}}/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="{{global.pathRecursos}}/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="{{global.pathRecursos}}/assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="{{global.pathRecursos}}/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->        
+{#<script src="{{asset('bundles/resolucion/js/genericas.js')}}"></script>#}
+{#<script src="{{asset('bundles/resolucion/plugins/jAlert/jquery.alerts.js')}}"></script>#}
+
+
+{% block pagePlugins %}{% endblock %}  
+<div id="divProcesando" style="display: none"> 
+    <div id="divProcesandoOverlay" class="ProcesandoOverlay"> 
+        <div id="divProcesandoLoader" class="ProcesandoLoader">
+            {#            <img id="imgProcesando" src="{{asset('bundles/resolucion/img/progressbar.gif')}}" style="height:60px; width: 60px;" /><span style="color: #C00000; font-weight: bold; font-size: 15px; margin-left: -10px;">Procesando... </span>#}
+        </div> 
+    </div>
+</div>
+</body>
+<!-- END BODY -->
+</html>
